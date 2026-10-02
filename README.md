@@ -1,4 +1,4 @@
-# Game Concept: Tank Slayer 
+# Game Concept: Larp Pig// fix soon 
 - Core Idea: Easy to understand and play, yet demands strategic decision-making and delivers continuous tension.
 
 - Game Description:

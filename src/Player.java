@@ -1,34 +1,45 @@
-public class Player implements TanK{
-    private int ammo;
-    private int speed;
-    private boolean Alive;
-    Player(){
-        this.ammo = 4;
-        this.speed = 50;
-        this.Alive = true;
+public class Player extends Pig{
+    private String username;
+    private boolean HeadServer;
+    private int xLine;
+    private int yLine;
+    Player(String username){
+        this.username = username;
     }
-    public void Shot(){
-
+    @Override
+    public String toString() {
+                return String.format(
+                    "User::%s \nUser_AILVE::%s \nUser_AMMO::%d\nUser_KILL::%d \nUser_STATUS::%s \nUser_Head::%s\n"
+                    ,username,status_alive(),getAmmo(),getKill(),status_rank(),isHeadS());
     }
-    public void Hit(){
-
+    @Override
+    public void Shot() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Shot'");
     }
-    public void move(){
-
+    @Override
+    public void Hit() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Hit'");
     }
-    public void add_ammo(){
-        ammo++;
+    @Override
+    public void move() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
-    public boolean isDead(){
-        if(Alive){
-            return true;
+    public void setHeadServer(){
+        HeadServer = !HeadServer;
+    }
+    public String isHeadS(){
+        if(HeadServer){
+            return "Yes";
         }
-        return false;
-    }
-    public boolean is_out_of_ammo(){
-        if(ammo==0){
-            return true;
+        else{
+            return "No";
         }
-        return false;
     }
+    public boolean isHeadServer(){
+        return HeadServer;
+    }
+    
 }

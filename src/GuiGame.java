@@ -8,7 +8,7 @@ public class GuiGame extends JFrame{
     }
     private void set_up(){
         setTitle("Game");
-        setSize(1000, 700);
+        setSize(1024, 764);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);
