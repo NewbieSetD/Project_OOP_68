@@ -27,6 +27,11 @@ public class Player extends Pig{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
+    @Override
+    protected void doShot() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'doShot'");
+    }
     public void setHeadServer(){
         HeadServer = !HeadServer;
     }
@@ -41,5 +46,6 @@ public class Player extends Pig{
     public boolean isHeadServer(){
         return HeadServer;
     }
+
     
 }

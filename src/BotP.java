@@ -1,4 +1,4 @@
-public class BotP extends Pig{
+public class BotP extends Pig  {
     private int botID;
     private int spwanX;
     private int spwanY;
