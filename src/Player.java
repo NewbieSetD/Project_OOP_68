@@ -39,16 +39,16 @@ public class Player extends Pig {
     public void move(int direction) {
         switch (statusTrun) {
             case 90:
-                yLine+=8 *direction;
+                yLine+=6 *direction;
                 break;
             case 270:
-                yLine-=8 *direction;
+                yLine-=6 *direction;
                 break;
             case 180:
-                xLine-=8 *direction;
+                xLine-=6 *direction;
                 break;
             case 0:
-                xLine+=8 *direction;
+                xLine+=6 *direction;
                 break;
             default:
                 xLine = xLine;

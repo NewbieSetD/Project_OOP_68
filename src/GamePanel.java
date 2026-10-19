@@ -45,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         });
         addKeyListener(this);
         startGameThread();
+        CharPla.getWidth(this);
     }
 
     public void startGameThread() {
