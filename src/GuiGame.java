@@ -26,39 +26,47 @@ public class GuiGame extends JFrame implements ActionListener{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 15, 15, 15);
         cardLayout = new CardLayout();
-        //add(new GamePanel(),BorderLayout.CENTER);
         mainPanel = new JPanel(cardLayout);
-        page1 = new JPanel();
-        page1.setLayout(new GridBagLayout());
-        page1.setBackground(Color.LIGHT_GRAY);
+        // page1 = new JPanel();
+        // page1.setLayout(new GridBagLayout());
+        // page1.setBackground(Color.LIGHT_GRAY);
         goToPage2Btn = new JButton("ไปหน้า 2");
         goToPage2Btn.setPreferredSize(new Dimension(180,70));
         
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        page1.add(new JLabel("หน้า 1: Menu"),gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        page1.add(new JLabel("หน้า 1: เมนูหลัก"),gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        page1.add(goToPage2Btn,gbc);
+        // gbc.gridx = 0;
+        // gbc.gridy = 3;
+        // page1.add(new JLabel("หน้า 1: Menu"),gbc);
+        // gbc.gridx = 0;
+        // gbc.gridy = 1;
+        // page1.add(new JLabel("หน้า 1: เมนูหลัก"),gbc);
+        // gbc.gridx = 0;
+        // gbc.gridy = 2;
+        // page1.add(goToPage2Btn,gbc);
 
-        page2 = new JPanel();
-        page2.setBackground(Color.CYAN);
+        // page2 = new JPanel();
+        // page2.setBackground(Color.CYAN);
         backToPage1Btn = new JButton("กลับหน้า 1");
-        page2.add(new JLabel("หน้า 2: การตั้งค่า"));
-        page2.add(backToPage1Btn);
+        // page2.add(new JLabel("หน้า 2: การตั้งค่า"));
+        // page2.add(backToPage1Btn);
 
         goToPage2Btn.addActionListener(e -> cardLayout.show(mainPanel,"SETTINGS_PAGE"));
         backToPage1Btn.addActionListener(e -> cardLayout.show(mainPanel, "MENU_PAGE"));
 
-        mainPanel.add(page1,"MENU_PAGE");
-        mainPanel.add(page2,"SETTINGS_PAGE");
+        // mainPanel.add(page1,"MENU_PAGE");
+        // mainPanel.add(page2,"SETTINGS_PAGE");
+        GamePanel game = new GamePanel(this.player);
+        game.requestFocusInWindow();
+        mainPanel.add(game);
         cardLayout.show(mainPanel,"Main");
         add(mainPanel,BorderLayout.CENTER);
+        JPanel statusPanel = new JPanel();
+        statusPanel.add(new JLabel("Ammo::"),BorderLayout.SOUTH);
+        statusPanel.add(new JLabel("Dead::"),BorderLayout.SOUTH);
+        statusPanel.add(new JLabel("Kill::"),BorderLayout.SOUTH);
+        add(statusPanel, BorderLayout.SOUTH);
         //add(new JLabel("Hi"),BorderLayout.SOUTH);
         //add(new Button("Hi"));
+
     }
     private void set_up(){
         setTitle("Game");
