@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     Random rnd = new Random();
     boolean Reday;
     int xP, yP;
-    int imgW = 24; // ความกว้างของรูปภาพ
+    int imgW = 24;
     int imgH = 24;
     String dataMOVE;
     boolean actev;
@@ -203,17 +203,39 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
 
     public void WallSetSpawn(int x) {
+        //WallList.add(new Rectangle(x, y, ขนาดแนวกว้าง, ขนาดแนวสูง));
         switch (x) {
             case 0:
                 System.out.println("Set Spawn 1");
-
+                //WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+                //WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
                 break;
-
+            case 1:
+                System.out.println("Set Spawn 2");
+                //WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+                //WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;
+            case 2:
+                System.out.println("Set Spawn 3");
+               // WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+               // WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;
+            case 3:
+                System.out.println("Set Spawn 4");
+                //WallList.add(new Rectangle(300, 200, 200, 30)); //  กำแพงแนวนอน  
+            case 4:
+                System.out.println("Set Spawn 5");
+                //WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+                //WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;    
             default:
                 System.out.println("Set Spawn Defult");
                 WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
-                WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตั้ง
+                WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
                 break;
         }
+    }
+    public void ResetMap() {
+        WallList.clear();
     }
 }
