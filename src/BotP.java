@@ -18,12 +18,6 @@ public class BotP extends Pig  {
     public void Hit() {
         super.Hit();
     }
-
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
     @Override
     protected void doShot() {
         // TODO Auto-generated method stub

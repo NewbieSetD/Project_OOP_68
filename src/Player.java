@@ -1,5 +1,4 @@
 import java.awt.Rectangle;
-
 public class Player extends Pig {
     private String username;
     private boolean HeadServer;
@@ -7,7 +6,7 @@ public class Player extends Pig {
     private int yLine;
     private int statusTrun = 0;
     private Rectangle hitbox;
-
+    private  int[]turn = {0, 90, 180, 270};
 
     Player(String username, int x, int y) {
         this.username = username;
@@ -15,6 +14,8 @@ public class Player extends Pig {
         this.yLine = y;
         this.HeadServer = false;
         this.hitbox = new Rectangle(xLine, yLine, 24, 24);
+        statusTrun = turn[(int)(Math.random() * turn.length)];
+        
     }
 
     @Override
@@ -117,10 +118,10 @@ public class Player extends Pig {
         String move = "";
         switch (statusTrun) {
             case 90:
-                move = "UP";
+                move = "DOWN";
                 break;
             case 270:
-                move = "DOWN";
+                move = "UP";
                 break;
             case 180:
                 move = "LEFT";
