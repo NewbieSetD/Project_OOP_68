@@ -7,6 +7,7 @@ public abstract class Pig {
     protected int killed = 0;
 
     public abstract String toString();
+    public abstract boolean equals(Object obj);
     public abstract void move(int direction);
     public void Shot() {
         if (!is_out_of_ammo() && !isDead()) {

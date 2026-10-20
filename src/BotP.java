@@ -29,5 +29,15 @@ public class BotP extends Pig  {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'doShot'");
     }
+    @Override
+    public boolean equals(Object obj) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'equals'");
+    }
+    @Override
+    public void move(int direction) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'move'");
+    }
     
 }

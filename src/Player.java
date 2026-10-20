@@ -5,7 +5,7 @@ public class Player extends Pig {
     private boolean HeadServer;
     private int xLine;
     private int yLine;
-    private int statusTrun=0;
+    private int statusTrun = 0;
     private Rectangle hitbox;
 
     Player(String username, int x, int y) {
@@ -15,14 +15,23 @@ public class Player extends Pig {
         this.HeadServer = false;
         this.hitbox = new Rectangle(xLine, yLine, 24, 24);
     }
+
     @Override
     public String toString() {
         return String.format(
-            "User::%s \nUser_ALIVE::%s \nUser_AMMO::%d\nUser_KILL::%d \nUser_STATUS::%s \nUser_Head::%s\nPosition::(%d, %d)\nPositionMOVE::%s\n",
-            username, status_alive(), getAmmo(), getKill(), status_rank(), HeadServer ? "Yes" : "No", xLine, yLine,getMOVE()
-        );
+                "User::%s \nUser_ALIVE::%s \nUser_AMMO::%d\nUser_KILL::%d \nUser_STATUS::%s \nUser_Head::%s\nPosition::(%d, %d)\nPositionMOVE::%s\n",
+                username, status_alive(), getAmmo(), getKill(), status_rank(), HeadServer ? "Yes" : "No", xLine, yLine,
+                getMOVE());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     @Override
     public void Hit() {
@@ -34,16 +43,16 @@ public class Player extends Pig {
     public void move(int direction) {
         switch (statusTrun) {
             case 90:
-                yLine+=8 *direction;
+                yLine += 8 * direction;
                 break;
             case 270:
-                yLine-=8 *direction;
+                yLine -= 8 * direction;
                 break;
             case 180:
-                xLine-=8 *direction;
+                xLine -= 8 * direction;
                 break;
             case 0:
-                xLine+=8 *direction;
+                xLine += 8 * direction;
                 break;
             default:
                 xLine = xLine;
@@ -51,8 +60,8 @@ public class Player extends Pig {
                 break;
         }
         if (hitbox != null) {
-        hitbox.setLocation(xLine, yLine);
-    }
+            hitbox.setLocation(xLine, yLine);
+        }
     }
 
     @Override
@@ -93,16 +102,18 @@ public class Player extends Pig {
         xLine = newX;
         yLine = newY;
     }
-    public void setStatusMove(int c){
-        if(c != 90 && c != -90){
+
+    public void setStatusMove(int c) {
+        if (c != 90 && c != -90) {
             System.out.println("Not Data");
             return;
         }
         statusTrun = (statusTrun + c + 360) % 360;
-        
+
     }
-    public String getMOVE(){
-        String move="";
+
+    public String getMOVE() {
+        String move = "";
         switch (statusTrun) {
             case 90:
                 move = "UP";
@@ -122,7 +133,9 @@ public class Player extends Pig {
         }
         return move;
     }
+
     public int getStatusTrun() {
         return statusTrun;
     }
+
 }

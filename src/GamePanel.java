@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             { 900, 90 },
             { 100, 540 },
             { 900, 540 },
-            {496, 334}
+            { 496, 324 }
     };
     int[] arrsetSpaw;
     Random rnd = new Random();
@@ -26,7 +26,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     int imgH = 24;
     String dataMOVE;
     boolean actev;
-    GamePanel(GuiGame guii,String Name) {
+
+    GamePanel(GuiGame guii, String Name) {
         setBackground(Color.LIGHT_GRAY);
         setFocusable(true);
         CharPla = Toolkit.getDefaultToolkit()
@@ -41,9 +42,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //System.out.println("คลิกที่ตำแหน่ง: " + e.getX() + ", " + e.getY());
+                // System.out.println("คลิกที่ตำแหน่ง: " + e.getX() + ", " + e.getY());
                 pla.Shot();
-                //System.out.printf("%s\n", pla);
+                // System.out.printf("%s\n", pla);
                 guii.setStatusPanel();
             }
         });
@@ -55,13 +56,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public void startGameThread() {
         Thread gameThread = new Thread(this);
         isRunning = true;
-        gameThread.start(); 
+        gameThread.start();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(Color.YELLOW);
+        g2d.fillOval(xP - 3, yP - 3, 30, 30);
         for (int[] point : spawn) {
             int x = point[0];
             int y = point[1];
@@ -70,8 +73,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
         if (this.pla != null) {
             g2d.rotate(Math.toRadians(pla.getStatusTrun()), pla.getPoseX() + (imgW / 2), pla.getPoseY() + (imgH / 2));
-            g2d.setColor(Color.YELLOW);
-            g2d.fillOval(xP-3, yP-3, 30, 30);
+
             g2d.drawImage(CharPla, xP, yP, imgW, imgH, this);
             g2d.dispose();
         }
@@ -111,11 +113,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             return;
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             pla.setStatusMove(+90);
-             dataMOVE = pla.getMOVE();
+            dataMOVE = pla.getMOVE();
         }
         if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             pla.setStatusMove(-90);
-             dataMOVE = pla.getMOVE();
+            dataMOVE = pla.getMOVE();
         }
         if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
             pla.move(1);
@@ -133,25 +135,32 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     }
+
     @Override
     public void keyTyped(KeyEvent e) {
     }
-    public int getAmmo(){
+
+    public int getAmmo() {
         return pla.getAmmo();
     }
-    public String getAlive(){
+
+    public String getAlive() {
         return pla.status_alive();
     }
-    public int getKill(){
+
+    public int getKill() {
         return pla.getKill();
     }
-    public Player getPlayer(){
+
+    public Player getPlayer() {
         return pla;
     }
-    public void Chage(){
+
+    public void Chage() {
         actev = !actev;
     }
-    public boolean toChage(){
+
+    public boolean toChage() {
         return actev;
     }
 }
