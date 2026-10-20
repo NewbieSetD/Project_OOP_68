@@ -44,6 +44,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             public void mouseClicked(MouseEvent e) {
                 // System.out.println("คลิกที่ตำแหน่ง: " + e.getX() + ", " + e.getY());
                 pla.Shot();
+                // pla.addKill();
+                // pla.to_King();
                 // System.out.printf("%s\n", pla);
                 guii.setStatusPanel();
             }

@@ -8,6 +8,7 @@ public class Player extends Pig {
     private int statusTrun = 0;
     private Rectangle hitbox;
 
+
     Player(String username, int x, int y) {
         this.username = username;
         this.xLine = x;
@@ -136,6 +137,9 @@ public class Player extends Pig {
 
     public int getStatusTrun() {
         return statusTrun;
+    }
+    public Rectangle getHitbox() {
+        return hitbox;
     }
 
 }
