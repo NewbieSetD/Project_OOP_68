@@ -238,4 +238,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public void ResetMap() {
         WallList.clear();
     }
+    public void ResetPlayer() {
+        arrsetSpaw = spawn[rnd.nextInt(spawn.length)];
+        pla.respawn();
+        xP = pla.getPoseX();
+        yP = pla.getPoseY();
+    }
 }
