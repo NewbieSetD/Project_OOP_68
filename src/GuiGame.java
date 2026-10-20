@@ -1,18 +1,21 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class GuiGame extends JFrame implements ActionListener{
+
+public class GuiGame extends JFrame implements ActionListener {
     CardLayout cardLayout;
     JPanel mainPanel;
-    JButton goToPage2Btn,backToPage1Btn;
-    JPanel page2,page1; 
-    JTextField  datauser;
-    Player player;
+    JButton goToPage2Btn, backToPage1Btn;
+    JPanel page2, page1;
+    JTextField datauser;
     JMenuItem AboutD;
     JOptionPane JOP;
+    GamePanel game;
     private String inputstatus = "Unknow";
     String aboutContent;
-    GuiGame(){
+    JLabel AmmoS, DeadS, KillS;
+    String As,Ds,Ks;
+    GuiGame() {
         set_up();
         JMenuBar menuBar = new JMenuBar();
         JMenu About = new JMenu("[ ? ]");
@@ -20,8 +23,7 @@ public class GuiGame extends JFrame implements ActionListener{
         AboutD.addActionListener(this);
         About.add(AboutD);
         menuBar.add(About);
-        add(menuBar,BorderLayout.NORTH);
-
+        add(menuBar, BorderLayout.NORTH);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 15, 15, 15);
@@ -31,8 +33,8 @@ public class GuiGame extends JFrame implements ActionListener{
         // page1.setLayout(new GridBagLayout());
         // page1.setBackground(Color.LIGHT_GRAY);
         goToPage2Btn = new JButton("ไปหน้า 2");
-        goToPage2Btn.setPreferredSize(new Dimension(180,70));
-        
+        goToPage2Btn.setPreferredSize(new Dimension(180, 70));
+
         // gbc.gridx = 0;
         // gbc.gridy = 3;
         // page1.add(new JLabel("หน้า 1: Menu"),gbc);
@@ -49,35 +51,36 @@ public class GuiGame extends JFrame implements ActionListener{
         // page2.add(new JLabel("หน้า 2: การตั้งค่า"));
         // page2.add(backToPage1Btn);
 
-        goToPage2Btn.addActionListener(e -> cardLayout.show(mainPanel,"SETTINGS_PAGE"));
+        goToPage2Btn.addActionListener(e -> cardLayout.show(mainPanel, "SETTINGS_PAGE"));
         backToPage1Btn.addActionListener(e -> cardLayout.show(mainPanel, "MENU_PAGE"));
 
         // mainPanel.add(page1,"MENU_PAGE");
-        // mainPanel.add(page2,"SETTINGS_PAGE");
-        GamePanel game = new GamePanel(this.player);
+        // mainPanel.add(page2,"SETTINGS_Player player;PAGE");
+        game = new GamePanel("Myboy");
         game.requestFocusInWindow();
         mainPanel.add(game);
-        cardLayout.show(mainPanel,"Main");
-        add(mainPanel,BorderLayout.CENTER);
+        cardLayout.show(mainPanel, "Main");
+        add(mainPanel, BorderLayout.CENTER);
         JPanel statusPanel = new JPanel();
-        statusPanel.add(new JLabel("Ammo::"),BorderLayout.SOUTH);
-        statusPanel.add(new JLabel("Dead::"),BorderLayout.SOUTH);
-        statusPanel.add(new JLabel("Kill::"),BorderLayout.SOUTH);
+        statusPanel.setBackground(Color.GRAY);
+        AmmoS = new JLabel("Ammo:: "+As);
+        DeadS = new JLabel("Dead:: "+Ds);
+        KillS = new JLabel("Kill:: "+Ks);
+        statusPanel.add(AmmoS, BorderLayout.SOUTH);
+        statusPanel.add(DeadS, BorderLayout.SOUTH);
+        statusPanel.add(KillS, BorderLayout.SOUTH);
         add(statusPanel, BorderLayout.SOUTH);
-        //add(new JLabel("Hi"),BorderLayout.SOUTH);
-        //add(new Button("Hi"));
-
+        // add(new JLabel("Hi"),BorderLayout.SOUTH);
+        // add(new Button("Hi"));
     }
-    private void set_up(){
+
+    private void set_up() {
         setTitle("Game");
         setSize(1024, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         JOP = new JOptionPane();
-    }
-    public Player getPlayer(){
-        return player;
     }
     void Log_input(JTextField DT) {
         new Thread() {
@@ -92,28 +95,42 @@ public class GuiGame extends JFrame implements ActionListener{
 
         }.start();
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == AboutD){
+        if (e.getSource() == AboutD) {
             setAboutDev();
             JOptionPane.showMessageDialog(
-            this,
-            aboutContent,
-            "เกี่ยวกับโปรแกรม (Aboutเบื้องต้น)",
-            JOptionPane.INFORMATION_MESSAGE);
+                    this,
+                    aboutContent,
+                    "เกี่ยวกับโปรแกรม (Aboutเบื้องต้น)",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    private void setAboutDev(){
+
+    private void setAboutDev() {
         aboutContent = "<html>"
-            + "<body style='width: 250px; font-family: Tahoma;'>"
-            + "<h2 style='color: #1877F2; margin-bottom: 2px;'>Larp Pig Game</h2>"
-            + "<b>Version:</b> Ahpla 0.0.1<br><br>"
-            + "Project Game<br><hr>"
-            + "<b>ผู้พัฒนา:</b><br>"
-            + "• นาย ปานพรรณ จันอ่อน 68011212045<br>"
-            + "• นาย ข. (รหัสนักศึกษา 650XXXXX)<br><br>"
-            + "<small style='color: gray;'>© 2026 OOP Assignment. All rights reserved.</small>"
-            + "</body>"
-            + "</html>";
+                + "<body style='width: 250px; font-family: Tahoma;'>"
+                + "<h2 style='color: #1877F2; margin-bottom: 2px;'>Larp Pig Game</h2>"
+                + "<b>Version:</b> Ahpla 0.0.1<br><br>"
+                + "Project Game<br><hr>"
+                + "<b>ผู้พัฒนา:</b><br>"
+                + "• นาย ปานพรรณ จันอ่อน 68011212045<br>"
+                + "• นาย ข. (รหัสนักศึกษา 650XXXXX)<br><br>"
+                + "<small style='color: gray;'>© 2026 OOP Assignment. All rights reserved.</small>"
+                + "</body>"
+                + "</html>";
+    }
+    public void setStatusPanel(){
+        if(game.getPlayer()==null){
+            As="Unknow";
+            Ds="Unknow";
+            Ks="Unknow";
+        }
+        else{
+            As = String.format("%d",game.getPlayer().getAmmo());
+            Ds = game.getPlayer().status_alive();
+            Ks = String.format("%d",game.getPlayer().getKill());
+        }
     }
 }

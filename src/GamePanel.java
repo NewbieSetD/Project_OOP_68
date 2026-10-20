@@ -9,12 +9,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private Player pla;
     private Image CharPla;
     private boolean isRunning = false;
-    private final int FPS = 60;
+    private final int FPS = 30;
     private int[][] spawn = {
             { 100, 90 },
             { 900, 90 },
             { 100, 540 },
-            { 900, 540 }
+            { 900, 540 },
+            {496, 334}
     };
     int[] arrsetSpaw;
     Random rnd = new Random();
@@ -24,16 +25,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     int imgH = 24;
     String dataMOVE;
 
-    GamePanel(Player pla) {
+    GamePanel(String Name) {
         setBackground(Color.LIGHT_GRAY);
-        this.pla = pla;
         setFocusable(true);
         CharPla = Toolkit.getDefaultToolkit()
                 .createImage(System.getProperty("user.dir") + "/Image/Player_dummy.png");
 
         arrsetSpaw = spawn[rnd.nextInt(spawn.length)];
-        this.pla = new Player("Boy", arrsetSpaw[0] - 6, arrsetSpaw[1] - 6);
-        System.out.printf("%s", pla);
+        pla = new Player(Name, arrsetSpaw[0] - 6, arrsetSpaw[1] - 6);
+        System.out.printf("%s\n", pla);
         xP = this.pla.getPoseX();
         yP = this.pla.getPoseY();
         dataMOVE = this.pla.getMOVE();
@@ -66,6 +66,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
         if (this.pla != null) {
             g2d.rotate(Math.toRadians(pla.getStatusTrun()), pla.getPoseX() + (imgW / 2), pla.getPoseY() + (imgH / 2));
+            g2d.setColor(Color.YELLOW);
+            g2d.fillOval(xP-3, yP-3, 30, 30);
             g2d.drawImage(CharPla, xP, yP, imgW, imgH, this);
             g2d.dispose();
         }
@@ -74,9 +76,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void run() {
         double drawInterval = 1000000000.0 / FPS;
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (isRunning) {
@@ -108,11 +107,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             return;
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             pla.setStatusMove(+90);
-             dataMOVE = this.pla.getMOVE();
+             dataMOVE = pla.getMOVE();
         }
         if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             pla.setStatusMove(-90);
-             dataMOVE = this.pla.getMOVE();
+             dataMOVE = pla.getMOVE();
         }
         if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
             pla.move(1);
@@ -132,5 +131,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
+    }
+    public Player getPlayer(){
+        return pla;
     }
 }
