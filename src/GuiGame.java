@@ -13,8 +13,9 @@ public class GuiGame extends JFrame implements ActionListener {
     GamePanel game;
     private String inputstatus = "Unknow";
     String aboutContent;
-    JLabel AmmoS, DeadS, KillS;
-    String As,Ds,Ks;
+    JLabel AmmoS, DeadS, KillS,KingS;
+    String As, Ds, Ks,Kgs;
+
     GuiGame() {
         set_up();
         JMenuBar menuBar = new JMenuBar();
@@ -56,22 +57,25 @@ public class GuiGame extends JFrame implements ActionListener {
 
         // mainPanel.add(page1,"MENU_PAGE");
         // mainPanel.add(page2,"SETTINGS_Player player;PAGE");
-        game = new GamePanel("Myboy");
+        game = new GamePanel(this,"Myboy");
         game.requestFocusInWindow();
         mainPanel.add(game);
         cardLayout.show(mainPanel, "Main");
         add(mainPanel, BorderLayout.CENTER);
         JPanel statusPanel = new JPanel();
-        statusPanel.setBackground(Color.GRAY);
-        AmmoS = new JLabel("Ammo:: "+As);
-        DeadS = new JLabel("Dead:: "+Ds);
-        KillS = new JLabel("Kill:: "+Ks);
-        statusPanel.add(AmmoS, BorderLayout.SOUTH);
-        statusPanel.add(DeadS, BorderLayout.SOUTH);
-        statusPanel.add(KillS, BorderLayout.SOUTH);
+        statusPanel.setBackground(Color.WHITE);
+        AmmoS = new JLabel("Ammo:: " + As);
+        DeadS = new JLabel("Alive:: " + Ds);
+        KillS = new JLabel("Kill:: " + Ks);
+        KingS = new JLabel("Rank:: " + Kgs);
+        statusPanel.add(AmmoS);
+        statusPanel.add(DeadS);
+        statusPanel.add(KillS);
+        statusPanel.add(KingS);
         add(statusPanel, BorderLayout.SOUTH);
         // add(new JLabel("Hi"),BorderLayout.SOUTH);
         // add(new Button("Hi"));
+        setStatusPanel();
     }
 
     private void set_up() {
@@ -82,6 +86,7 @@ public class GuiGame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         JOP = new JOptionPane();
     }
+
     void Log_input(JTextField DT) {
         new Thread() {
             public void run() {
@@ -121,16 +126,26 @@ public class GuiGame extends JFrame implements ActionListener {
                 + "</body>"
                 + "</html>";
     }
-    public void setStatusPanel(){
-        if(game.getPlayer()==null){
-            As="Unknow";
-            Ds="Unknow";
-            Ks="Unknow";
+
+    public void setStatusPanel() {
+        if (game == null || game.getPlayer() == null) {
+            As = "Unknow";
+            Ds = "Unknow";
+            Ks = "Unknow";
+            Kgs = "Unknow";
+        } else {
+            As = String.format("%d", game.getAmmo());
+            Ds = game.getAlive();
+            Ks = String.format("%d", game.getKill());
+            Kgs = game.getPlayer().status_rank();
         }
-        else{
-            As = String.format("%d",game.getPlayer().getAmmo());
-            Ds = game.getPlayer().status_alive();
-            Ks = String.format("%d",game.getPlayer().getKill());
-        }
+        if (AmmoS != null)
+            AmmoS.setText("Ammo:: " + As);
+        if (DeadS != null)
+            DeadS.setText("Alive:: " + Ds);
+        if (KillS != null)
+            KillS.setText("Kill:: " + Ks);
+        if (KingS != null)
+            KingS.setText("Rank:: " + Kgs);
     }
 }

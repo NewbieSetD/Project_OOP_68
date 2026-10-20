@@ -11,7 +11,7 @@ public abstract class Pig {
     public void Shot() {
         if (!is_out_of_ammo() && !isDead()) {
             ammo--;
-            doShot(); 
+            //doShot(); 
         }
     }
     protected abstract void doShot();

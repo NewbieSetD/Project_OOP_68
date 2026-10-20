@@ -23,11 +23,6 @@ public class Player extends Pig {
         );
     }
 
-    @Override
-    public void Shot() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Shot'");
-    }
 
     @Override
     public void Hit() {

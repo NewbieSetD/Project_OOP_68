@@ -8,6 +8,7 @@ import java.util.Random;
 public class GamePanel extends JPanel implements Runnable, KeyListener {
     private Player pla;
     private Image CharPla;
+    private GuiGame guii;
     private boolean isRunning = false;
     private final int FPS = 30;
     private int[][] spawn = {
@@ -24,8 +25,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     int imgW = 24; // ความกว้างของรูปภาพ
     int imgH = 24;
     String dataMOVE;
-
-    GamePanel(String Name) {
+    boolean actev;
+    GamePanel(GuiGame guii,String Name) {
         setBackground(Color.LIGHT_GRAY);
         setFocusable(true);
         CharPla = Toolkit.getDefaultToolkit()
@@ -34,13 +35,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         arrsetSpaw = spawn[rnd.nextInt(spawn.length)];
         pla = new Player(Name, arrsetSpaw[0] - 6, arrsetSpaw[1] - 6);
         System.out.printf("%s\n", pla);
-        xP = this.pla.getPoseX();
-        yP = this.pla.getPoseY();
-        dataMOVE = this.pla.getMOVE();
+        xP = pla.getPoseX();
+        yP = pla.getPoseY();
+        dataMOVE = pla.getMOVE();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("คลิกที่ตำแหน่ง: " + e.getX() + ", " + e.getY());
+                //System.out.println("คลิกที่ตำแหน่ง: " + e.getX() + ", " + e.getY());
+                pla.Shot();
+                //System.out.printf("%s\n", pla);
+                guii.setStatusPanel();
             }
         });
         addKeyListener(this);
@@ -132,7 +136,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
     }
+    public int getAmmo(){
+        return pla.getAmmo();
+    }
+    public String getAlive(){
+        return pla.status_alive();
+    }
+    public int getKill(){
+        return pla.getKill();
+    }
     public Player getPlayer(){
         return pla;
+    }
+    public void Chage(){
+        actev = !actev;
+    }
+    public boolean toChage(){
+        return actev;
     }
 }
