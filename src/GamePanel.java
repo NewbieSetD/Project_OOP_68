@@ -22,10 +22,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     Random rnd = new Random();
     boolean Reday;
     int xP, yP;
-    int imgW = 24; // ความกว้างของรูปภาพ
+    int imgW = 24;
     int imgH = 24;
     String dataMOVE;
     boolean actev;
+    ArrayList<Rectangle> WallList = new ArrayList<>();
 
     GamePanel(GuiGame guii, String Name) {
         setBackground(Color.LIGHT_GRAY);
@@ -44,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             public void mouseClicked(MouseEvent e) {
                 // System.out.println("คลิกที่ตำแหน่ง: " + e.getX() + ", " + e.getY());
                 pla.Shot();
+                // pla.addKill();
+                // pla.to_King();
                 // System.out.printf("%s\n", pla);
                 guii.setStatusPanel();
             }
@@ -51,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         addKeyListener(this);
         startGameThread();
         CharPla.getWidth(this);
+
     }
 
     public void startGameThread() {
@@ -65,12 +69,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.YELLOW);
         g2d.fillOval(xP - 3, yP - 3, 30, 30);
+        g2d.setColor(Color.BLACK);
+        for (Rectangle wall : WallList) {
+            g2d.fillRect(wall.x, wall.y, wall.width, wall.height);
+        }
         for (int[] point : spawn) {
             int x = point[0];
             int y = point[1];
             g2d.setColor(Color.RED);
             g2d.fillRect(x, y, 10, 10);
         }
+
         if (this.pla != null) {
             g2d.rotate(Math.toRadians(pla.getStatusTrun()), pla.getPoseX() + (imgW / 2), pla.getPoseY() + (imgH / 2));
 
@@ -101,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 nextDrawTime += drawInterval;
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }
@@ -114,22 +123,51 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
             pla.setStatusMove(+90);
             dataMOVE = pla.getMOVE();
+            // System.out.println(dataMOVE);
         }
         if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
             pla.setStatusMove(-90);
             dataMOVE = pla.getMOVE();
+            // System.out.println(dataMOVE);
         }
         if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
             pla.move(1);
+            if (checkCollision()) {
+                pla.move(-1);
+
+            }
             xP = pla.getPoseX();
             yP = pla.getPoseY();
         }
         if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
             pla.move(-1);
+            if (checkCollision()) {
+                pla.move(1);
+            }
             xP = pla.getPoseX();
             yP = pla.getPoseY();
         }
         repaint();
+    }
+
+    public boolean checkCollision() {
+        if (pla == null)
+            return false;
+
+        int x = pla.getPoseX();
+        int y = pla.getPoseY();
+        if (WallList != null) {
+            for (Rectangle wall : WallList) {
+                if (pla.getHitbox() != null && pla.getHitbox().intersects(wall)) {
+                    return true; // ชนกำแพง
+                }
+            }
+        }
+        if (x < 0 || y < 0 || (x + imgW) > getWidth() || (y + imgH) > getHeight()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -162,5 +200,48 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     public boolean toChage() {
         return actev;
+    }
+
+    public void WallSetSpawn(int x) {
+        //WallList.add(new Rectangle(x, y, ขนาดแนวกว้าง, ขนาดแนวสูง));
+        switch (x) {
+            case 0:
+                System.out.println("Set Spawn 1");
+                //WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+                //WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;
+            case 1:
+                System.out.println("Set Spawn 2");
+                //WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+                //WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;
+            case 2:
+                System.out.println("Set Spawn 3");
+               // WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+               // WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;
+            case 3:
+                System.out.println("Set Spawn 4");
+                //WallList.add(new Rectangle(300, 200, 200, 30)); //  กำแพงแนวนอน  
+            case 4:
+                System.out.println("Set Spawn 5");
+                //WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+                //WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;    
+            default:
+                System.out.println("Set Spawn Defult");
+                WallList.add(new Rectangle(300, 200, 200, 30)); // กำแพงแนวนอน
+                WallList.add(new Rectangle(600, 150, 30, 300)); // กำแพงแนวตัง
+                break;
+        }
+    }
+    public void ResetMap() {
+        WallList.clear();
+    }
+    public void ResetPlayer() {
+        arrsetSpaw = spawn[rnd.nextInt(spawn.length)];
+        pla.respawn();
+        xP = pla.getPoseX();
+        yP = pla.getPoseY();
     }
 }

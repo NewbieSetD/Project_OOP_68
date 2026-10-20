@@ -75,8 +75,11 @@ public class GuiGame extends JFrame implements ActionListener {
         KingS = new JLabel("Rank:: " + Kgs);
         KingS.setFont(statusFont);
         statusPanel.add(AmmoS);
+        statusPanel.add(new JLabel("=|="));
         statusPanel.add(DeadS);
+        statusPanel.add(new JLabel("=|="));
         statusPanel.add(KillS);
+        statusPanel.add(new JLabel("=|="));
         statusPanel.add(KingS);
         add(statusPanel, BorderLayout.SOUTH);
         // add(new JLabel("Hi"),BorderLayout.SOUTH);
